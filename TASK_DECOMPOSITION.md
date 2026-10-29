@@ -28,7 +28,7 @@ reactive state thrashing.
 - [x] Task 2.1: Import engine from Homework 1
 - [x] Task 2.2: Generate synthetic tracks
 - [x] Task 2.3: Define audio queue contracts
-- [ ] Task 2.4: Implement task status FSM
+- [x] Task 2.4: Implement task status FSM
 - [ ] Task 2.5: Implement FIFO concurrency-controlled queue
 - [ ] Task 2.6: Add cancellation and buffer release
 - [ ] Task 2.7: Add throttled fetch
