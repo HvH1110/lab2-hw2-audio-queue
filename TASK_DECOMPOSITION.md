@@ -25,7 +25,7 @@ reactive state thrashing.
 ## Checklist
 
 - [x] Task 2.0: Write `project-rules.md` and `TASK_DECOMPOSITION.md`
-- [ ] Task 2.1: Import engine from Homework 1
+- [x] Task 2.1: Import engine from Homework 1
 - [ ] Task 2.2: Generate synthetic tracks
 - [ ] Task 2.3: Define audio queue contracts
 - [ ] Task 2.4: Implement task status FSM
