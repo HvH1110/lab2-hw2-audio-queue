@@ -1,4 +1,5 @@
 import { isActive, transitionTask } from './task-state';
+import { TERMINAL_STATUSES } from './types';
 import type {
   DecodeFn,
   DecodedAudio,
@@ -130,6 +131,57 @@ export class AudioTaskQueue<B extends DecodedAudio> {
     this.move(task, 'FINISH');
     task.buffer = null;
     this.emit();
+  }
+
+  /**
+   * Cancels a task in any non-terminal state: aborts its fetch/decode, drops its buffer,
+   * rejects its promise with an AbortError and frees its slot for the next FIFO task.
+   */
+  cancel(id: string): void {
+    const task = this.tasks.find((t) => t.id === id);
+    if (task === undefined || !this.abortTask(task)) return;
+    this.emit();
+    this.pump();
+  }
+
+  /** Marks one task cancelled without starting anything else. Returns false if it was already finished. */
+  private abortTask(task: InternalTask<B>): boolean {
+    if (TERMINAL_STATUSES.has(task.status)) return false;
+    task.status = transitionTask(task.status, 'CANCEL');
+    task.controller.abort();
+    task.buffer = null;
+    task.reject(new DOMException('The task was cancelled.', 'AbortError'));
+    return true;
+  }
+
+  /** Cancels (if needed) and forgets a task. */
+  remove(id: string): void {
+    this.cancel(id);
+    const index = this.tasks.findIndex((t) => t.id === id);
+    if (index === -1) return;
+    this.tasks.splice(index, 1);
+    this.emit();
+  }
+
+  /** Forgets every finished (played, failed, cancelled) task. */
+  clearFinished(): void {
+    const keep = this.tasks.filter((t) => !TERMINAL_STATUSES.has(t.status));
+    this.tasks.splice(0, this.tasks.length, ...keep);
+    this.emit();
+  }
+
+  /** Cancels and forgets everything. */
+  clear(): void {
+    // Abort everything first: cancelling one by one would free slots and start queued tasks mid-clear.
+    for (const task of this.tasks) this.abortTask(task);
+    this.tasks.length = 0;
+    this.emit();
+  }
+
+  /** clear() plus dropping every subscriber: nothing keeps the queue alive. */
+  destroy(): void {
+    this.clear();
+    this.listeners.clear();
   }
 
   /** First unfinished task in FIFO order (what the player should play or wait for). */
