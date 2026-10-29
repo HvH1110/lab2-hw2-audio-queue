@@ -29,7 +29,7 @@ reactive state thrashing.
 - [x] Task 2.2: Generate synthetic tracks
 - [x] Task 2.3: Define audio queue contracts
 - [x] Task 2.4: Implement task status FSM
-- [ ] Task 2.5: Implement FIFO concurrency-controlled queue
+- [x] Task 2.5: Implement FIFO concurrency-controlled queue
 - [ ] Task 2.6: Add cancellation and buffer release
 - [ ] Task 2.7: Add throttled fetch
 - [ ] Task 2.8: Implement playback engine with node cleanup
