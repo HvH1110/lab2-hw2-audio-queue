@@ -1,0 +1,51 @@
+{
+  "heapBaseline": 916683,
+  "whileDownloading": [
+    "DOWNLOADING",
+    "DOWNLOADING",
+    "QUEUED",
+    "QUEUED",
+    "QUEUED"
+  ],
+  "activeStat": "2 / 2",
+  "nowPlaying": "Playing: Saigon Sunrise",
+  "contextState": "running",
+  "afterDownloads": [
+    "PLAYED",
+    "PLAYING",
+    "READY",
+    "READY",
+    "READY"
+  ],
+  "vizFps": 60,
+  "commitsDuringSteadyPlayback": 0,
+  "analyserPeak": 255,
+  "pageFps": 60,
+  "afterSkips": [
+    "PLAYED",
+    "PLAYED",
+    "PLAYED",
+    "PLAYED",
+    "PLAYED"
+  ],
+  "liveSourcesStat": "0",
+  "buffersStat": "0",
+  "sources": {
+    "created": 5,
+    "disconnected": 5
+  },
+  "heapAfterCycles": [
+    1213506,
+    1242974,
+    1251438,
+    1304854,
+    1305430,
+    1305454
+  ],
+  "sourcesFinal": {
+    "created": 35,
+    "disconnected": 35
+  },
+  "errors": [],
+  "auditFails": 0
+}
