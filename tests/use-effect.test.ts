@@ -116,3 +116,25 @@ describe('useEffect', () => {
     expect(() => setOn(false)).toThrow(/Rules of Hooks violated/);
   });
 });
+
+describe('useEffect: unmount', () => {
+  it('state updates fired by cleanups during unmount do not re-render (no effects on torn-down state)', () => {
+    const render = vi.fn();
+    const effect = vi.fn();
+    let setTick!: StateSetter<number>;
+    app = renderApp(() => {
+      render();
+      const [tick, set] = useState(0);
+      setTick = set;
+      useEffect(() => () => setTick(tick + 1), []); // cleanup that emits a state change
+      useEffect(effect, [tick]);
+      return createElement('p', null, tick);
+    }, root);
+    render.mockClear();
+    effect.mockClear();
+    app.unmount();
+    app = null;
+    expect(render).not.toHaveBeenCalled();
+    expect(effect).not.toHaveBeenCalled();
+  });
+});

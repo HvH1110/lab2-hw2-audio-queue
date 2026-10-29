@@ -82,6 +82,9 @@ export function renderApp(Component: RootComponent, container: Element, options:
     rerender: render,
     getTree: () => tree,
     unmount: () => {
+      // Stop rendering first: cleanups (closing an AudioContext, cancelling a queue) may emit
+      // events that call setState, and a render now would run effects against half-torn-down state.
+      setRenderer(() => {});
       disposeEffects();
       teardownEvents();
       container.replaceChildren();
