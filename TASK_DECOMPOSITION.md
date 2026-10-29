@@ -31,7 +31,7 @@ reactive state thrashing.
 - [x] Task 2.4: Implement task status FSM
 - [x] Task 2.5: Implement FIFO concurrency-controlled queue
 - [x] Task 2.6: Add cancellation and buffer release
-- [ ] Task 2.7: Add throttled fetch
+- [x] Task 2.7: Add throttled fetch
 - [ ] Task 2.8: Implement playback engine with node cleanup
 - [ ] Task 2.9: Implement allocation-free canvas visualizer
 - [ ] Task 2.10: Assemble the app
